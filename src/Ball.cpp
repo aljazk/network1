@@ -1,4 +1,4 @@
-#include "../include/Ball.hpp"
+#include "Ball.hpp"
 
 #define MATH_PI (3.14159265359)
 

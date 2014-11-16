@@ -1,12 +1,10 @@
-#include "..\include\Light.hpp"
+#include "Light.hpp"
 
 #define MATH_PI (3.14159265359)
 
 Light::Light(){
     lineVertex.setPrimitiveType(sf::Lines);
     lightBall.setPrimitiveType(sf::TrianglesFan);
-    lightX.resize(300);
-    lightY.resize(300);
 }
 
 void Light::getMap(Map level){
@@ -27,7 +25,7 @@ void Light::getMap(Map level){
         linesY[i/2*5+4] = wallY[i];
     }
 }
-
+/*
 void Light::intrasectLines(){
     for (float i=0; i<lightX.size(); i++){
         float f = i*6.28/lightX.size();
@@ -49,6 +47,14 @@ void Light::intrasectLines(){
                 }
             }
         }
+    }
+}*/
+void Light::intrasectLines(){
+    lightX.resize(linesX.size());
+    lightY.resize(linesY.size());
+    for(int i=0; lightX.size(); i++){
+        lightX[i] = linesX[i];
+        lightY[i] = linesY[i];
     }
 }
 

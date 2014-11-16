@@ -1,4 +1,4 @@
-#include "../include/Map.hpp"
+#include "Map.hpp"
 
 #define MATH_PI (3.14159265359)
 
