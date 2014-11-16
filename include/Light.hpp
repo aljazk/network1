@@ -20,6 +20,7 @@ class Light
         void intrasectLines();
     private:
         sf::VertexArray lineVertex;
+        sf::VertexArray lightBall;
         vector<int> linesX;
         vector<int> linesY;
         vector<int> lightX;

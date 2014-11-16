@@ -555,7 +555,7 @@ void Enemies::test(sf::RenderTarget &window, Map &level, Ball &player){
             }
         }
     }
-    window.draw(enemyVertex);
+    //window.draw(enemyVertex);
     window.draw(lineVertex);
     for(unsigned int c=0;c<windowWidth*windowHeight*4;c++) enemyVertex[c].color = sf::Color(255,255,255,255);
 

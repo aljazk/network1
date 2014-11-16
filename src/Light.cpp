@@ -4,8 +4,9 @@
 
 Light::Light(){
     lineVertex.setPrimitiveType(sf::Lines);
-    lightX.resize(50);
-    lightY.resize(50);
+    lightBall.setPrimitiveType(sf::TrianglesFan);
+    lightX.resize(300);
+    lightY.resize(300);
 }
 
 void Light::getMap(Map level){
@@ -54,6 +55,7 @@ void Light::intrasectLines(){
 
 void Light::DrawEffects(sf::RenderWindow &window){
     intrasectLines();
+    /*
     lineVertex.resize(lightX.size()*2);
     for (int i=0; i<lightX.size()*2; i+=2){
         lineVertex[i].position = sf::Vector2f(mousex,mousey);
@@ -74,7 +76,20 @@ void Light::DrawEffects(sf::RenderWindow &window){
             lineVertex[i+1].color = sf::Color::Transparent;
         }
     }
+    */
     window.draw(lineVertex);
+    lightBall.resize(lightX.size()+2);
+    lightBall[0].position = sf::Vector2f(mousex, mousey);
+    lightBall[0].color = sf::Color(255,255,255,100);
+    for(int i=0; i<lightX.size(); i++){
+        lightBall[i+1].position = sf::Vector2f(lightX[i],lightY[i]);
+        float dist = sqrt(pow(mousex-lightX[i], 2)+pow(mousey-lightY[i], 2));
+        lightBall[i+1].color = sf::Color(255,255,255,(float)100/(float)500*(float)((float)500-dist));
+    }
+    lightBall[lightX.size()+1].position = sf::Vector2f(lightX[0], lightY[0]);
+    float dist = sqrt(pow(mousex-lightX[0], 2)+pow(mousey-lightY[0], 2));
+    lightBall[lightX.size()+1].color = sf::Color(255,255,255,(float)100/(float)500*(float)((float)500-dist));
+    window.draw(lightBall);
 }
 
 void Light::listenMouse(sf::Event event){
