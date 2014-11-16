@@ -1,7 +1,7 @@
-TARGET=bin/ball
+TARGET=release/ball
 CFLAGS=-Wall -Wextra -DSFML_STATIC
-LFLAGS=-static -static-libgcc -static-libstdc++ -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -mwindows
-FILES=main.cpp Ball.cpp Enemies.cpp Map.cpp Lighting.cpp
+LFLAGS=-static -static-libgcc -static-libstdc++ -lsfml-graphics-s -lsfml-window-s -lsfml-system-s
+FILES=main.cpp Ball.cpp Enemies.cpp Map.cpp Light.cpp
 
 OBJS=$(patsubst %,build/%.o,$(basename $(FILES)))
 .PHONY: all clean

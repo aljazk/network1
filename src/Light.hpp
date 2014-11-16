@@ -21,10 +21,11 @@ class Light
     private:
         sf::VertexArray lineVertex;
         sf::VertexArray lightBall;
-        vector<int> linesX;
-        vector<int> linesY;
-        vector<int> lightX;
-        vector<int> lightY;
+        sf::VertexArray lightTriangles;
+        vector<int> triangleX, triangleX1;
+        vector<int> triangleY, triangleY1;
+        vector<int> lineX, lineX1;
+        vector<int> lineY, lineY1;
         float mousex, mousey;
 };
 

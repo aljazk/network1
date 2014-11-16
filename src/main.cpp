@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
-#include "src/Ball.hpp"
-#include "src/Map.hpp"
-#include "src/Enemies.hpp"
-#include "src/Light.hpp"
+#include "Ball.hpp"
+#include "Map.hpp"
+#include "Enemies.hpp"
+#include "Light.hpp"
 #include <iostream>
 #include <sstream>
 #include <string>
