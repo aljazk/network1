@@ -351,7 +351,7 @@ void Enemies::loadEnemies(string fileName){
                 enemySeenX.push_back(-1);
                 enemySeenY.push_back(-1);
                 enemySeen.push_back(0);
-            } else if (line[0] != 'r' && line[0] != 'c' && line[0] != 'b'){
+            } else if (line[0] != 'r' && line[0] != 'c' && line[0] != 'b' && line[0] != 'd'){
                 cout << "Enemy: Unknown object" << endl;
             }
         }

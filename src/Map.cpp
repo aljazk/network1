@@ -458,3 +458,10 @@ void Map::loadMap(string fileName){
 void Map::getGrid(vector< vector<char> > &setGrid){
     setGrid = grid;
 }
+
+void Map::getWalls(vector<int> &getWallX,vector<int> &getWallY, vector<int> &getDoorX, vector<int> &getDoorY){
+    getWallX = wallx;
+    getWallY = wally;
+    getDoorX = doorx;
+    getDoorY = doory;
+}

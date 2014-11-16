@@ -19,6 +19,7 @@ class Map
         bool deleteBullet(int,int);
         void loadMap(string);
         void getGrid(vector < vector<char> >&);
+        void getWalls(vector<int>&, vector<int>&, vector<int>&, vector<int>&);
     private:
         int ballx, bally;
         vector<int> wallx, wally;

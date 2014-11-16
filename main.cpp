@@ -2,6 +2,7 @@
 #include "include/Ball.hpp"
 #include "include/Map.hpp"
 #include "include/Enemies.hpp"
+#include "include/Light.hpp"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -49,6 +50,9 @@ int main()
     Enemies enemy;
     enemy.loadEnemies(mapname);
 
+    Light light;
+    light.getMap(level);
+
 	// start loop
     while (window.isOpen())
     {
@@ -59,6 +63,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             player.listenMouse(event);
+            light.listenMouse(event);
 		}
 		// wasd key events
 
@@ -97,6 +102,8 @@ int main()
 		text.setColor(sf::Color::White);
 		text.setPosition(10,10);
 		window.draw(text);
+
+		light.DrawEffects(window);
 
 		// draw stuff on window
         window.display();

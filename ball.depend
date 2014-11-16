@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1416056538 source:c:\users\win7\desktop\ball\main.cpp
+	<SFML/Graphics.hpp>
+	"include/Ball.hpp"
+	"include/Map.hpp"
+	"include/Enemies.hpp"
+	"include/Light.hpp"
+	<iostream>
+	<sstream>
+	<string>
+	<vector>
+
+1414175469 c:\users\win7\desktop\ball\include\ball.hpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<cmath>
+
+1416129572 c:\users\win7\desktop\ball\include\map.hpp
+	<SFML/Graphics.hpp>
+	"Ball.hpp"
+	<iostream>
+	<vector>
+	<cmath>
+	<fstream>
+
+1414951181 c:\users\win7\desktop\ball\include\enemies.hpp
+	<SFML/Graphics.hpp>
+	"Ball.hpp"
+	"Map.hpp"
+	<iostream>
+	<sstream>
+	<vector>
+	<fstream>
+
+1416056248 c:\users\win7\desktop\ball\include\light.hpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<sstream>
+	<vector>
+	<fstream>
+
+1415989334 source:c:\users\win7\desktop\ball\src\ball.cpp
+	"../include/Ball.hpp"
+
+1416056609 source:c:\users\win7\desktop\ball\src\enemies.cpp
+	"..\include\Enemies.hpp"
+
+1416056510 source:c:\users\win7\desktop\ball\src\light.cpp
+	"..\include\Light.hpp"
+
+1415992496 source:c:\users\win7\desktop\ball\src\map.cpp
+	"../include/Map.hpp"
+
