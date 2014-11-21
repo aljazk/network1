@@ -91,6 +91,8 @@ int main()
 		player.moveBall();
         player.makeLightning(window);
 
+		light.DrawEffects(window);
+
 		// end the current frame
 		float currentTime = clock.restart().asSeconds();
 		fps = 1.f / currentTime;
@@ -103,7 +105,6 @@ int main()
 		text.setPosition(10,10);
 		window.draw(text);
 
-		light.DrawEffects(window);
 
 		// draw stuff on window
         window.display();

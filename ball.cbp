@@ -31,15 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="include/Ball.hpp" />
-		<Unit filename="include/Enemies.hpp" />
-		<Unit filename="include/Light.hpp" />
-		<Unit filename="include/Map.hpp" />
-		<Unit filename="main.cpp" />
 		<Unit filename="src/Ball.cpp" />
+		<Unit filename="src/Ball.hpp" />
 		<Unit filename="src/Enemies.cpp" />
+		<Unit filename="src/Enemies.hpp" />
 		<Unit filename="src/Light.cpp" />
+		<Unit filename="src/Light.hpp" />
 		<Unit filename="src/Map.cpp" />
+		<Unit filename="src/Map.hpp" />
+		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

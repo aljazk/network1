@@ -50,8 +50,8 @@ float Ball::getDmg(){
 }
 
 void Ball::spawnBall(){
-    x = 100;
-    y = 100;
+    x = 50;
+    y = 50;
     fx = 0;
     fy = 0;
     sx = 0;

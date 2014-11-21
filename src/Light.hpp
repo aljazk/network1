@@ -22,10 +22,12 @@ class Light
         sf::VertexArray lineVertex;
         sf::VertexArray lightBall;
         sf::VertexArray lightTriangles;
+        sf::Texture light;
+        sf::RenderTexture lightBlend;
+        sf::Sprite displayLight;
+        sf::RenderStates states;
         vector<int> triangleX, triangleX1;
         vector<int> triangleY, triangleY1;
-        vector<int> lineX, lineX1;
-        vector<int> lineY, lineY1;
         float mousex, mousey;
 };
 

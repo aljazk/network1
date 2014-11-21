@@ -214,7 +214,12 @@ void Map::drawMap(sf::RenderWindow &window){//make one map.texture for all objec
         quad[2].position = sf::Vector2f(wallx[i+1], wally[i+1]);
         quad[3].position = sf::Vector2f(wallx[i], wally[i+1]);
     }
-    window.draw(wallObject);
+    // load only the vertex shader
+    sf::Shader shader;
+    shader.loadFromFile("a.vert", "a.frag");
+    //shader.loadFromFile("a.vert", sf::Shader::Vertex);
+    window.draw(wallObject, &shader);
+
     for(unsigned int i=0;i<circx.size();i++){
         circleObject.setPosition(sf::Vector2f(circx[i]-crad[i], circy[i]-crad[i]));
         circleObject.setRadius(crad[i]);
