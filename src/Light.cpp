@@ -5,13 +5,15 @@
 Light::Light(){
     lineVertex.setPrimitiveType(sf::Lines);
     lightBall.setPrimitiveType(sf::Quads);
-    lightBall.resize(4);
     lightTriangles.setPrimitiveType(sf::Triangles);
     light.loadFromFile("light.png");
     if (!lightBlend.create(1000,1000)){
         cout << "Cant create texture lightBlend" << endl;
     }
-    states.blendMode = sf::BlendNone;
+    if (!lightsBlend.create(1000,1000)){
+        cout << "Cant create texture lightBlend" << endl;
+    }
+    addLight.setTexture(lightsBlend.getTexture());
     states.texture = &light;
     displayLight.setPosition(sf::Vector2f(0,0));
     displayLight.setTexture(lightBlend.getTexture());
@@ -34,6 +36,9 @@ void Light::getMap(Map level){
         linesX[i/2*4+3] = wallX[i];
         linesY[i/2*4+3] = wallY[i+1];
     }
+    triangleX.resize(linesX.size()); triangleX1.resize(linesX.size());
+    triangleY.resize(linesY.size()); triangleY1.resize(linesY.size());
+    /*
     triangleX.resize(linesX.size()+4); triangleX1.resize(linesX.size()+4);
     triangleY.resize(linesY.size()+4); triangleY1.resize(linesY.size()+4);
     int screenX = 1000, screenY = 1000;
@@ -45,7 +50,8 @@ void Light::getMap(Map level){
     triangleY[2] = screenY; triangleY1[2] = screenY;
     triangleX[3] = 0; triangleX1[3] = 0;
     triangleY[3] = screenY; triangleY1[3] = 0;
-    for(unsigned int i=4; i<linesX.size();i++){
+    */
+    for(unsigned int i=0; i<linesX.size();i++){
         triangleX[i] = linesX[i];
         triangleY[i] = linesY[i];
         if ((i+1)%4 != 0){
@@ -56,6 +62,8 @@ void Light::getMap(Map level){
             triangleY1[i] = linesY[i-3];
         }
     }
+    quadX.resize(triangleX.size()); quadX1.resize(triangleX1.size());
+    quadY.resize(triangleY.size()); quadY1.resize(triangleY1.size());
 }
 /*
 void Light::intrasectLines(){
@@ -81,53 +89,81 @@ void Light::intrasectLines(){
         }
     }
 }*/
-void Light::intrasectLines(){
-
+void Light::intrasectLines(int LightPosX, int lightPosY){
+    for(unsigned int i=0; i<triangleX.size();i++){
+        float lightDistance = 350;
+        float dist = sqrt(pow(LightPosX-triangleX[i], 2)+pow(lightPosY-triangleY[i], 2));
+        float addDistance = -lightDistance + dist;
+        float f;
+        if (addDistance < 0){
+            f = atan2(lightPosY - triangleY[i], LightPosX - triangleX[i]);
+            quadX[i] = cos(f)*addDistance + triangleX[i];
+            quadY[i] = sin(f)*addDistance + triangleY[i];
+        } else {
+            quadX[i] = triangleX[i];
+            quadY[i] = triangleY[i];
+        }
+        dist = sqrt(pow(LightPosX-triangleX1[i], 2)+pow(lightPosY-triangleY1[i], 2));
+        addDistance = -lightDistance + dist;
+        if (addDistance < 0){
+            f = atan2(lightPosY - triangleY1[i], LightPosX - triangleX1[i]);
+            quadX1[i] = cos(f)*addDistance + triangleX1[i];
+            quadY1[i] = sin(f)*addDistance + triangleY1[i];
+        } else {
+            quadX1[i] = triangleX1[i];
+            quadY1[i] = triangleY1[i];
+        }
+    }
+    //cout << "intrasectLines done." << endl;
 }
 
 
 void Light::DrawEffects(sf::RenderWindow &window){
 
-    lightBall.resize(4);
-    lightBall[0].position = sf::Vector2f(0, 0);
-    lightBall[0].color = sf::Color::Black;
-    lightBall[1].position = sf::Vector2f(1000, 0);
-    lightBall[1].color = sf::Color::Black;
-    lightBall[2].position = sf::Vector2f(1000, 1000);
-    lightBall[2].color = sf::Color::Black;
-    lightBall[3].position = sf::Vector2f(0, 1000);
-    lightBall[3].color = sf::Color::Black;
-    //window.draw(lightBall);
-    lightBlend.draw(lightBall);
-    lightBall.clear();
-    lightBall.resize(4);
 
-    int lightDistance = 300;
-    lightBall[0].position = sf::Vector2f(mousex-lightDistance, mousey-lightDistance);
-    lightBall[0].texCoords = sf::Vector2f(0,0);
-    lightBall[1].position = sf::Vector2f(mousex+lightDistance, mousey-lightDistance);
-    lightBall[1].texCoords = sf::Vector2f(lightDistance,0);
-    lightBall[2].position = sf::Vector2f(mousex+lightDistance, mousey+lightDistance);
-    lightBall[2].texCoords = sf::Vector2f(lightDistance,lightDistance);
-    lightBall[3].position = sf::Vector2f(mousex-lightDistance, mousey+lightDistance);
-    lightBall[3].texCoords = sf::Vector2f(0,lightDistance);
-    //window.draw(lightBall, &light);
-    lightBlend.draw(lightBall, states);
+
+    for(int i=0; i<2; i++){
+
+        lightsBlend.clear(sf::Color::Black);
+        states.blendMode = sf::BlendAdd;
+
+        int lightPosX = mousex - i*300;
+        int lightPosY = mousey - i*300;
+        states.blendMode = sf::BlendAdd;
+        lightBall.resize(4);
+        int lightDistance = 300;
+        lightBall[0].position = sf::Vector2f(lightPosX-lightDistance, lightPosY-lightDistance);
+        lightBall[0].texCoords = sf::Vector2f(0,0);
+        lightBall[1].position = sf::Vector2f(lightPosX+lightDistance, lightPosY-lightDistance);
+        lightBall[1].texCoords = sf::Vector2f(lightDistance,0);
+        lightBall[2].position = sf::Vector2f(lightPosX+lightDistance, lightPosY+lightDistance);
+        lightBall[2].texCoords = sf::Vector2f(lightDistance,lightDistance);
+        lightBall[3].position = sf::Vector2f(lightPosX-lightDistance, lightPosY+lightDistance);
+        lightBall[3].texCoords = sf::Vector2f(0,lightDistance);
+
+        lightsBlend.draw(lightBall, states);
+        lightBall.resize(quadX.size()*4);
+        intrasectLines(lightPosX, lightPosY);
+        for (unsigned int i=0; i<quadX.size(); i++){
+            sf::Vertex *quads = &lightBall[i*4];
+            quads[0].position = sf::Vector2f(triangleX[i], triangleY[i]);
+            quads[1].position = sf::Vector2f(triangleX1[i], triangleY1[i]);
+            quads[2].position = sf::Vector2f(quadX1[i], quadY1[i]);
+            quads[3].position = sf::Vector2f(quadX[i], quadY[i]);
+            for (int c=0; c<4; c++) quads[c].color = sf::Color(0,0,0,255);
+        }
+        states.blendMode = sf::BlendNone;
+        lightsBlend.draw(lightBall, states);
+        lightBall.clear();
+        lightsBlend.display();
+        states.blendMode = sf::BlendAdd;
+        lightBlend.draw(addLight, states);
+    }
     lightBlend.display();
-    lightBall.clear();
-    lightBall.resize(4);
-    lightBall[0].position = sf::Vector2f(0, 0);
-    lightBall[0].texCoords = sf::Vector2f(0,0);
-    lightBall[1].position = sf::Vector2f(1000, 0);
-    lightBall[1].texCoords = sf::Vector2f(1000,0);
-    lightBall[2].position = sf::Vector2f(1000, 1000);
-    lightBall[2].texCoords = sf::Vector2f(1000,1000);
-    lightBall[3].position = sf::Vector2f(0, 1000);
-    lightBall[3].texCoords = sf::Vector2f(0,1000);
-    window.draw(displayLight);
+    states.blendMode = sf::BlendMultiply;
+    window.draw(displayLight, states);
     lightBlend.clear(sf::Color::Transparent);
-    lightBall.clear();
-    //intrasectLines();
+
     /*
     lineVertex.resize(lightX.size()*2);
     for (int i=0; i<lightX.size()*2; i+=2){
@@ -164,10 +200,10 @@ void Light::DrawEffects(sf::RenderWindow &window){
     lightBall[lightX.size()+1].color = sf::Color(255,255,255,(float)100/(float)500*(float)((float)500-dist));
     window.draw(lightBall);*/
     lightTriangles.resize(triangleX.size()*3);
-    for(unsigned int i=1; i<triangleX.size(); i++){
+    for(unsigned int i=0; i<triangleX.size(); i++){
         sf::Vertex *triangles = &lightTriangles[i*3];
         triangles[0].position = sf::Vector2f(mousex, mousey);
-        triangles[0].color = sf::Color::Transparent;
+        triangles[0].color = sf::Color::Green;
         triangles[1].position = sf::Vector2f(triangleX[i], triangleY[i]);
         triangles[1].color = sf::Color::Black;
         triangles[2].position = sf::Vector2f(triangleX1[i], triangleY1[i]);

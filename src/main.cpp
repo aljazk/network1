@@ -70,7 +70,7 @@ int main()
 
 		// clear window
 
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color::Blue);
 
 		// do game stuff
 
