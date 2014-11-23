@@ -70,7 +70,7 @@ int main()
 
 		// clear window
 
-        window.clear(sf::Color::Blue);
+        window.clear(sf::Color::Black);
 
 		// do game stuff
 
@@ -91,7 +91,9 @@ int main()
 		player.moveBall();
         player.makeLightning(window);
 
-		light.DrawEffects(window);
+        int ballx, bally;
+        player.getCoords(ballx, bally);
+		light.DrawEffects(window, ballx, bally);
 
 		// end the current frame
 		float currentTime = clock.restart().asSeconds();

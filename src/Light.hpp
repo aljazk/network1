@@ -15,19 +15,19 @@ class Light
     public:
         Light();
         void getMap(Map);
-        void DrawEffects(sf::RenderWindow&);
+        void DrawEffects(sf::RenderWindow&, int, int);
         void listenMouse(sf::Event);
-        void intrasectLines(int, int);
+        void intrasectLines(int, int, int);
     private:
         sf::VertexArray lineVertex;
         sf::VertexArray lightBall;
         sf::VertexArray lightTriangles;
-        sf::Texture light;
         sf::RenderTexture lightBlend;
         sf::RenderTexture lightsBlend;
         sf::Sprite displayLight;
         sf::Sprite addLight;
         sf::RenderStates states;
+        sf::Shader shader;
         vector<int> triangleX, triangleX1;
         vector<int> triangleY, triangleY1;
         vector<int> quadX, quadX1;

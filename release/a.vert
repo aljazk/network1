@@ -1,3 +1,4 @@
+uniform vec2 mousePos;
 
 void main(void)
 {

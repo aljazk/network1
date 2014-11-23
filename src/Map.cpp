@@ -206,6 +206,21 @@ bool Map::deleteBullet(int x, int y){
 }
 
 void Map::drawMap(sf::RenderWindow &window){//make one map.texture for all objects so you can use one draw
+    wallObject.resize(400);
+    int f = 0;
+    for(int x = 0; x < 10; x++){
+        for(int y = 0; y < 10; y++){
+            sf::Vertex* quad = &wallObject[f];
+            quad[0].position = sf::Vector2f(x*100, y*100);
+            quad[1].position = sf::Vector2f(x*100+99, y*100);
+            quad[2].position = sf::Vector2f(x*100+99, y*100+99);
+            quad[3].position = sf::Vector2f(x*100, y*100+99);
+            for(int c=0; c<4; c++) quad[c].color = sf::Color(100,100,100,255);
+            f+=4;
+        }
+    }
+    window.draw(wallObject);
+    wallObject.clear();
     wallObject.resize(wallx.size()*2);
     for(unsigned int i=0;i<wallx.size();i+=2){
         sf::Vertex* quad = &wallObject[i*2];
@@ -215,10 +230,6 @@ void Map::drawMap(sf::RenderWindow &window){//make one map.texture for all objec
         quad[3].position = sf::Vector2f(wallx[i], wally[i+1]);
         for (int c=0; c<4; c++) quad[c].color = sf::Color::White;
     }
-    // load only the vertex shader
-    sf::Shader shader;
-    shader.loadFromFile("a.vert", "a.frag");
-    //shader.loadFromFile("a.vert", sf::Shader::Vertex);
     window.draw(wallObject);
 
     for(unsigned int i=0;i<circx.size();i++){

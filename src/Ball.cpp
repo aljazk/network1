@@ -117,7 +117,7 @@ void Ball::takePower(float take){
 }
 
 void Ball::moveBall(){
-    power = 10;
+    power = 11;
     float addfx=0, addfy=0;
     int acc = 150;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
